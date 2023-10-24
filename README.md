@@ -1,5 +1,6 @@
 # Ansible
-'''
-hey
-'''
+```yaml
+---
+- name: test
+
 # thisis test
