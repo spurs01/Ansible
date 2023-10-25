@@ -1,0 +1,7 @@
+---
+- name: just play
+  hosts: all
+  tasks:
+    - name: check the disk
+      command:
+        - fdisk -l
