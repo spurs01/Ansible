@@ -1,0 +1,17 @@
+---
+- name: Call API and get results from a webpage
+  hosts: localhost
+  tasks:
+    - name: Pulling SWAPI and get results from the webpage
+      uri:
+        url: https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=now-1day
+        return_content: yes
+      register: geo
+
+    - name: Debug variable to view contents
+      debug:
+         var: geo.json.metadata
+         
+    #- name: Debug variable to view contents
+    #  debug:
+    #    var: geo

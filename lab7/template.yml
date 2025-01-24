@@ -1,0 +1,11 @@
+---
+- name: test j2
+  hosts: all
+  tasks: 
+    - name: push the j2 file
+      template:
+        src: template.j2
+        dest: template.txt
+
+
+

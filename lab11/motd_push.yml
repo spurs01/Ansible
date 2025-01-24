@@ -1,0 +1,19 @@
+---
+- name: Push the motd file
+  hosts: dev
+  tasks: 
+    - name: Debug the env variable
+      debug:
+        var: env
+
+    - name: Push the prod motd
+      copy:
+        src: prod_motd
+        dest: /etc/motd
+      when: "'prod' in env"
+
+    - name: Push the dev motd
+      copy:
+        src: dev_motd
+        dest: /etc/motd
+      when: "'dev' in env"

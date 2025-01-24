@@ -1,0 +1,12 @@
+---
+- name: Variable output testing
+  hosts: localhost
+  vars_files: 
+    - vault.yml
+  tasks: 
+    - name: Debug variables to view contents
+      debug: 
+        msg: "{{ item }} is in variable list"
+      loop:
+        - "{{ username }}"
+        - "{{ password }}"

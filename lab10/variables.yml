@@ -1,0 +1,10 @@
+---
+- name: Variable output testing
+  hosts: localhost
+  tasks: 
+    - name: Debug variables to view contents
+      debug: 
+        msg: "{{ item }} is in variable list"
+      loop:
+        - "{{ username }}"
+        - "{{ password }}"

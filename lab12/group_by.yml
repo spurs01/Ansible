@@ -1,0 +1,24 @@
+---
+- name: System Facts and Group by those facts
+  hosts: servers
+  tasks:
+
+    - name: "Show Groups active in this playbook at start"
+      debug:
+        msg: "{{ group_names }}"
+
+    - name: Setting groups for rebootgroup
+      group_by:
+        key: "{{ ansible_local.patching.patch_group }}"
+      failed_when: false
+
+    - name: Checking Appserver flag
+      group_by:
+        key: Appserver
+      when: '"true" in ansible_local.patching.appserver'
+
+    - name: "Show Groups active in this playbook at end"
+      debug:
+        msg: "{{ group_names }}"
+
+

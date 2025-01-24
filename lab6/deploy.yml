@@ -1,0 +1,42 @@
+---
+- name: Deploy the file
+  hosts: dev
+  gather_facts: true
+  tasks: 
+    - name: push the deploy.tar.gz at {{ ansible_date_time.iso8601 }}
+      copy:
+        src: ./deploy.tar.gz
+        dest: /opt/
+        checksum: c9b437f52197d8723974d233419a25edb3d61062
+
+    - name: create the dest directory
+      file:
+        path: /opt/myapp
+        state: directory
+
+    - name: unpackage the file
+      unarchive:
+        src: /opt/deploy.tar.gz
+        dest: /opt/myapp
+        remote_src: yes
+
+    - name: make the installer script excutable
+      file:
+        path: /opt/myapp/deployer.sh
+        mode: 0755
+
+    - name: run the installer.sh
+      shell: /opt/myapp/deployer.sh
+      register: output
+
+    - name: debug and show the variable output
+      debug:
+        var: output
+
+
+
+
+
+
+
+

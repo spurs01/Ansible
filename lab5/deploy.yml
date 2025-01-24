@@ -1,0 +1,14 @@
+---
+- name: Deploy the file
+  hosts: "{{ group }}"
+  gather_facts: true
+  tasks: 
+    - name: push the deploy.tar.gz at {{ ansible_date_time.iso8601 }}
+      copy:
+        src: ./deploy.tar.gz
+        dest: /opt/
+        checksum: c9b437f52197d8723974d233419a25edb3d61062
+
+
+
+

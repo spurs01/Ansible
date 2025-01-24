@@ -1,0 +1,24 @@
+---
+- name: Package install for environment
+  hosts: servers
+  tasks:
+
+  - name: Debug env variables just to see them
+    debug:
+      var : app
+
+  - name: Install httpd on the web server
+    yum:
+      name: 
+        - httpd
+        - php
+        - stress
+      state: present
+    when: '"web" in app'
+      
+  - name: Install mariadb on the web server
+    yum:
+      name:
+        - mariadb105-server.x86_64
+      state: present
+    when: '"db" in app'

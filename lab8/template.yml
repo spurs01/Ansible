@@ -1,0 +1,14 @@
+---
+- name: Start of Jinja2 Template Push
+  hosts: dev
+  tasks:
+    - name: Get information for uptime on all systems
+      shell: uptime
+      register: uptime
+      
+    - name: Report out to main server
+      template:
+        src: template.j2
+        dest: report.{{ansible_date_time.iso8601_basic_short}}.txt
+      run_once: yes
+      delegate_to: localhost
