@@ -1,0 +1,8 @@
+---
+- name: Check the uptime
+  shell: uptime 
+  register: uptime_check
+
+- name: debug uptime
+  debug:
+    var: uptime_check

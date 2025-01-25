@@ -1,0 +1,24 @@
+- name: Debug env variables just to see them
+  debug:
+    var: app
+  tags:
+    - install
+
+- name: Install httpd on the web server
+  yum:
+    name: 
+    - httpd
+    - php
+    state: present
+  when: '"web" in app'
+  tags:
+    - install
+
+- name: Install mariadb on the web server
+  yum:
+    name: 
+    - mariadb105-server.x86_64
+    state: present
+  when: '"db" in app'
+  tags:
+    - install
