@@ -1,8 +1,0 @@
-This is a system Validation at 21:35:38 on 2025-01-12
-
-Unreachable systems:
--------------------------------------------------
-testnode
-
-Hosts who have been up longer than a day:
--------------------------------------------------
