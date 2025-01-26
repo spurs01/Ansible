@@ -1,0 +1,6 @@
+[servers]
+managed1 env=prod app=db
+managed2 env=dev app=web
+
+[webservers]
+managed2 env=dev app=web

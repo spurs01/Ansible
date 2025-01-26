@@ -1,0 +1,58 @@
+--- 
+- name: Web Environment
+  hosts: webservers
+  tasks:
+    
+    - name: install httpd
+      yum:
+        name: httpd
+
+    - name: create default DOCROOT
+      file:
+        name: "/var/www/html_{{ item }}"
+        state: directory
+      loop:
+        - dev
+        - test
+        - qa
+      notify: Restart httpd
+
+    - name: Add the Listener ports to /etc/httpd/conf/httpd.conf
+      lineinfile: 
+        path: /etc/httpd/conf/httpd.conf
+        insertafter: '^Listen'
+        state: present
+        line: "{{ item }}"
+      loop:
+        - 'Listen 8080'
+        - 'Listen 8081'
+        - 'Listen 8082' 
+      notify: Restart httpd
+
+    - name: Push the Virtual Directives files into the correct place
+      copy: 
+        src: "/home/ansible/{{ item }}"
+        dest: "/etc/httpd/conf.d/{{ item }}"
+      loop:
+        - dev_virtual_host.conf
+        - test_virtual_host.conf
+        - qa_virtual_host.conf
+      notify: Restart httpd
+
+    - name: Push the html files
+      copy:
+        src: "/home/ansible/{{ item.name }}_index.html"
+        dest: "/var/www/html_{{ item.env }}/index.html"
+      loop:
+        - { name: 'dev', env: 'dev' }
+        - { name: 'test', env: 'test' }
+        - { name: 'qa', env: 'qa' }
+      notify: Restart httpd
+
+  handlers: 
+
+    - name: Restart httpd
+      service:
+        name: httpd
+        state: restarted
+
