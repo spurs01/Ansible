@@ -1,0 +1,8 @@
+---
+- name: Deploy NFS
+  hosts: all
+  tasks:
+    
+  roles:
+    - { role: nfs_server, when: type=="server" }
+    - { role: nfs_client, when: type=="client" }

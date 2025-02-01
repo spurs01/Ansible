@@ -1,0 +1,20 @@
+---
+# tasks file for nfs_server
+- name: install nfs package
+  yum:
+    name: nfs-utils
+    state: latest
+
+- name: create the shared directory for nfs server
+  file:
+    name: /share
+    state: directory
+    owner: nobody
+    group: nobody
+
+- name: Setup share in /etc/exports
+  lineinfile:
+    path: /etc/exports
+    line: '/share *(rw,sync,no_subtree_check)'
+    create: yes
+  notify: restart nfs
