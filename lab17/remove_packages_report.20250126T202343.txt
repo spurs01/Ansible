@@ -1,0 +1,11 @@
+This is a system Validation at 20:23:43 on 2025-01-26
+
+Unreachable systems:
+----------------------------------------------
+
+Removed packages:
+----------------------------------------------
+managed1 - Package bzip2 is not present.
+managed1 - Package containerd is not present.
+managed2 - Package bzip2 is not present.
+managed2 - Package containerd is not present.
